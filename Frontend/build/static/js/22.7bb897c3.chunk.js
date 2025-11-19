@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmantis_free_react_admin_template=self.webpackChunkmantis_free_react_admin_template||[]).push([[22],{2022:function(e,t,a){a.r(t);t.default=function(){localStorage.removeItem("token"),window.location.reload(),window.location.href="/login"}}}]);
+//# sourceMappingURL=22.7bb897c3.chunk.js.map
