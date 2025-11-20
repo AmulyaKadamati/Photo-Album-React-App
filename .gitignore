@@ -1,0 +1,8 @@
+# Frontend
+Frontend/node_modules/
+Frontend/.cache/
+
+# Backend
+Backend/target/
+Backend/db/
+Backend/AppLog.log
