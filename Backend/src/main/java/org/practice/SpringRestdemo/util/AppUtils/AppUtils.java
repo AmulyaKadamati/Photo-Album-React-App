@@ -1,0 +1,70 @@
+package org.practice.SpringRestdemo.util.AppUtils;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import javax.imageio.ImageIO;
+
+import org.imgscalr.Scalr;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.web.multipart.MultipartFile;
+
+public class AppUtils {
+
+    public static String PATH = "src\\main\\resources\\static\\uploads\\";
+
+    // This method constructs the file path for uploading a photo
+    public static String get_photo_upload_path(String fileName, String folder_name, Long album_id) throws IOException {
+        String path = PATH + album_id + "\\" + folder_name;
+        Files.createDirectories(Paths.get(path));
+        return new File(path).getAbsolutePath() + "\\" + fileName;
+
+    }
+
+    // This method deletes a photo from the specified path
+    public static boolean delete_photo_from_path(String fileName, String folderName, long album_id) {
+
+        try {
+            File f = new File(PATH + album_id + "\\" + folderName + "\\" + fileName);
+            if (f.delete()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // This method generates a thumbnail image from the original file
+    public static BufferedImage getThumbnail(MultipartFile originalFile, Integer width) throws IOException {
+
+        BufferedImage thumbImg = null;
+        BufferedImage img = ImageIO.read(originalFile.getInputStream());
+
+        thumbImg = Scalr.resize(img, Scalr.Method.AUTOMATIC, Scalr.Mode.AUTOMATIC, width, Scalr.OP_ANTIALIAS);
+        return thumbImg;
+
+    }
+
+    // This method retrieves a file as a resource based on the album ID, folder
+    // name, and file name
+    public static Resource getFileAsResource(long album_id, String folder_name, String file_name) throws IOException {
+        String location = "src\\main\\resources\\static\\uploads\\" + album_id + "\\" + folder_name + "\\" + file_name;
+        File file = new File(location);
+        if (file.exists()) {
+            Path path = Paths.get(file.getAbsolutePath());
+            return new UrlResource(path.toUri());
+        } else {
+            return null;
+        }
+    }
+
+}
