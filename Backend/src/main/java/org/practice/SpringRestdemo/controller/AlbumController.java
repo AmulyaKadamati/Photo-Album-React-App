@@ -56,7 +56,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/v1")
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @Tag(name = "Album Controller", description = "Controller for album management")
 @Slf4j
 public class AlbumController {

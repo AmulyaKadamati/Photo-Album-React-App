@@ -19,15 +19,19 @@ public class SeedData implements CommandLineRunner {
         Account account01 = new Account();
         Account account02 = new Account();
 
+        if (AccountService.findByEmail("user@user.com") == null){
         account01.setEmail("user@user.com");
         account01.setPassword("pass987");
         account01.setAuthorities(Authority.USER.toString());
         AccountService.save(account01);
-
+        }
+        
+        if (AccountService.findByEmail("user@user.com") == null){
         account02.setEmail("admin@admin.com");
         account02.setPassword("pass987");
         account02.setAuthorities(Authority.ADMIN.toString() + " " + Authority.USER.toString());
         AccountService.save(account02);
+        }
 
     }
 
